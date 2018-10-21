@@ -1,6 +1,5 @@
 package com.martino.martsco.models;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class TypeEns {
-	private String dim;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column(unique = true)
+	private String dim;
 	private String intitule;
-
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<martsco>
+
+<rubrique>
+<intitule>Avant propos</intitule>
+<contenu><![CDATA[MartSCO est un logiciel de gestion des écoles. Il est développé en Java principalement par Martin et placé dans la gamme des locigiel de Martino Corporation.<p id='contenu'>Ce logiciel implémente les fonctionnalités suivantes:</p>
+<ul id='contenu'>
+<li>Gestion des notes</li>
+<li>La comptabilité des écoles</li>
+<li>La gestion des emplois du temps</li>
+<li>La gestion des document officiels</li>
+<li>La gestion d'une bibliothèque</li>
+</ul>
+
+<p id='contenu'>Nous souhaitons que ce logiciel puisse vous rendre sercice. Nous sommes naturellement ouverts à toute suggestion constructive pouvant aide à améliorer ce logiciel.</p>
+<p id='signature'>Cordialement</p>
+<p id='signature'>Martin</p>
+]]>
+</contenu>
+</rubrique>
+
+<document>Guide de l'utilisateur</document>
+
+<rubrique>
+<intitule>Editeur</intitule>
+<nom>Martin</nom>
+<telephone>91 75 56 32/ 97 19 20 84</telephone>
+<email>martinosearch@gmail.com</email>
+<contenu>Le développeur du logiciel MartSCO est Martin.</contenu>
+</rubrique>
+
+<entreprise>Martino Corporation</entreprise>
+
+
+<rubrique>
+<intitule>Premier pas</intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+<rubrique>
+<intitule>Configuration</intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+<rubrique>
+<intitule>Année scolaire</intitule>
+<contenu>Avec MartSCO chaque année scolaire contitue un dossier. Pour cela vous en créer une à chaque réntrée scolaire</contenu>
+</rubrique>
+
+<rubrique>
+<intitule>Classe</intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+<rubrique>
+<intitule>Elève</intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+<rubrique>
+<intitule>Enseignant</intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+<rubrique>
+<intitule>Matière</intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+<rubrique>
+<intitule></intitule>
+<contenu><![CDATA[]]>
+</contenu>
+</rubrique>
+
+</martsco>

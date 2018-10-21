@@ -3,6 +3,7 @@ package com.martino.martsco.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.martino.martsco.models.Annee;
 import com.martino.martsco.services.AnneeService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/type-ens")
 public class TypeEnsController {
 	@Autowired

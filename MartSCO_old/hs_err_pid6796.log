@@ -1,0 +1,121 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (virtualspace.cpp:125), pid=6796, tid=784
+#  fatal error: os::release_memory failed
+#
+# JRE version:  (7.0_80-b05) (build )
+# Java VM: Java HotSpot(TM) Client VM (24.80-b07 mixed mode windows-x86 )
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x017f4c00):  JavaThread "Unknown thread" [_thread_in_vm, id=784, stack(0x01380000,0x013d0000)]
+
+Stack: [0x01380000,0x013d0000],  sp=0x013cf808,  free space=318k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x1920d4]
+V  [jvm.dll+0x18b7e6]
+V  [jvm.dll+0x16772c]
+V  [jvm.dll+0x167beb]
+V  [jvm.dll+0x8ae36]
+V  [jvm.dll+0x888a6]
+V  [jvm.dll+0x875ee]
+V  [jvm.dll+0x91a43]
+V  [jvm.dll+0x141094]
+V  [jvm.dll+0x163c5c]
+V  [jvm.dll+0xca92f]
+C  [javaw.exe+0x13ce]
+C  [javaw.exe+0x1e40]
+C  [javaw.exe+0xa6d1]
+C  [javaw.exe+0xa75b]
+C  [KERNEL32.dll+0x51174]
+C  [ntdll.dll+0x5b3f5]
+C  [ntdll.dll+0x5b3c8]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x017f4c00 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=784, stack(0x01380000,0x013d0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x013d0000 - 0x013ff000 	C:\Program Files\Java\jre7\bin\javaw.exe
+0x77140000 - 0x7727c000 	C:\Windows\SYSTEM32\ntdll.dll
+0x6b340000 - 0x6b37f000 	C:\Program Files\AVAST Software\Avast\snxhk.dll
+0x76870000 - 0x76944000 	C:\Windows\system32\KERNEL32.dll
+0x75310000 - 0x7535a000 	C:\Windows\system32\KERNELBASE.dll
+0x75b60000 - 0x75c00000 	C:\Windows\system32\ADVAPI32.dll
+0x75590000 - 0x7563c000 	C:\Windows\system32\msvcrt.dll
+0x76c80000 - 0x76c99000 	C:\Windows\SYSTEM32\sechost.dll
+0x772c0000 - 0x77361000 	C:\Windows\system32\RPCRT4.dll
+0x75a90000 - 0x75b59000 	C:\Windows\system32\USER32.dll
+0x769b0000 - 0x769fe000 	C:\Windows\system32\GDI32.dll
+0x76be0000 - 0x76bea000 	C:\Windows\system32\LPK.dll
+0x76ae0000 - 0x76b7d000 	C:\Windows\system32\USP10.dll
+0x741e0000 - 0x7437e000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7600.16385_none_421189da2b7fabfc\COMCTL32.dll
+0x75640000 - 0x75697000 	C:\Windows\system32\SHLWAPI.dll
+0x75c00000 - 0x75c1f000 	C:\Windows\system32\IMM32.DLL
+0x76a10000 - 0x76adc000 	C:\Windows\system32\MSCTF.dll
+0x62d60000 - 0x62e1f000 	C:\Program Files\Java\jre7\bin\msvcr100.dll
+0x61690000 - 0x61a1b000 	C:\Program Files\Java\jre7\bin\client\jvm.dll
+0x72aa0000 - 0x72aa7000 	C:\Windows\system32\WSOCK32.dll
+0x77280000 - 0x772b5000 	C:\Windows\system32\WS2_32.dll
+0x76bf0000 - 0x76bf6000 	C:\Windows\system32\NSI.dll
+0x73c60000 - 0x73c92000 	C:\Windows\system32\WINMM.dll
+0x769a0000 - 0x769a5000 	C:\Windows\system32\PSAPI.DLL
+0x731a0000 - 0x731ac000 	C:\Program Files\Java\jre7\bin\verify.dll
+0x6c1d0000 - 0x6c1f1000 	C:\Program Files\Java\jre7\bin\java.dll
+0x706b0000 - 0x706c3000 	C:\Program Files\Java\jre7\bin\zip.dll
+0x677f0000 - 0x678db000 	C:\Windows\system32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 
+java_command: rreport.exampleOrder
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:/Program Files/Java/jre1.8.0_121/bin/client;C:/Program Files/Java/jre1.8.0_121/bin;C:/Program Files/Java/jre1.8.0_121/lib/i386;C:\Program Files\MiKTeX\miktex\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\FPC\2.6.4\bin\i386-Win32;C:\eclipse;
+USERNAME=martin90
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 16 Model 6 Stepping 3, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7600 
+
+CPU:total 1 (1 cores per cpu, 1 threads per core) family 16 model 6 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, popcnt, mmxext, 3dnowpref, lzcnt, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 1831488k(107140k free), swap 7325952k(5480k free)
+
+vm_info: Java HotSpot(TM) Client VM (24.80-b07) for windows-x86 JRE (1.7.0_80-ea-b05), built on Jan 21 2015 02:11:10 by "java_re" with unknown MS VC++:1600
+
+time: Tue May 01 01:42:37 2018
+elapsed time: 0 seconds
+

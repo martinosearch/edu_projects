@@ -3,6 +3,7 @@ package com.martino.martsco.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.martino.martsco.models.Eleve;
 import com.martino.martsco.services.EleveService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/eleve")
 public class EleveController {
 	@Autowired
