@@ -24,14 +24,18 @@ public class FichierEditor {
 		cmds.add("set PGuser=postgres");
 		cmds.add("set PGinstance=databaseinstance");
 		cmds.add("set PGdump=C:\\Program Files\\PostgreSQL\\9.4\\bin\\pg_dump");
+		// cmds.add("set PGdump=C:\\Program Files
+		// (x86)\\PostgreSQL\\9.4\\bin\\pg_dump");
 		cmds.add("set BackupDir=" + backupDir);
 		cmds.add("set BackupName=martscoData");
 		cmds.add("set DateTime=( %DATE:~-10,2%_%DATE:~-7,2%_%DATE:~-4% %TIME:~0,2%_%TIME:~3,2%_%TIME:~6,2% )");
 		cmds.add("echo %DateTime%");
 		cmds.add("mkDir %BackupDir%");
-		cmds.add("\"%PGdump%\" -h localhost -p 5432 -f \"%BackupDir%\\%BackupName%%DateTime%.backup\" -Fc -Z9 -v -U %PGuser% \""
-				+ MartConnection.getDataBase() + "\"");
-		cmds.add("for /F \"tokens=* skip=10\" %%A in ('dir /b /a-d /tc /o-d \"%BackupDir%\\%BackupName%*.backup\"') do del \"%BackupDir%\\%%~A\"");
+		cmds.add(
+				"\"%PGdump%\" -h localhost -p 5432 -f \"%BackupDir%\\%BackupName%%DateTime%.backup\" -Fc -Z9 -v -U %PGuser% \""
+						+ MartConnection.getDataBase() + "\"");
+		cmds.add(
+				"for /F \"tokens=* skip=500\" %%A in ('dir /b /a-d /tc /o-d \"%BackupDir%\\%BackupName%*.backup\"') do del \"%BackupDir%\\%%~A\"");
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(bat));
