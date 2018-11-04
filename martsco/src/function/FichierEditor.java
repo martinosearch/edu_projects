@@ -1,6 +1,7 @@
 package function;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
@@ -15,6 +16,8 @@ public class FichierEditor {
 		bat.create();
 
 		backupDir = "D:\\BackUp\\" + MartConnection.getDataBase();
+		File fileDump = new File("C:\\Program Files\\PostgreSQL\\9.4\\bin\\pg_dump");
+		File fileDump2 = new File("C:\\Program Files (x86)\\PostgreSQL\\9.4\\bin\\pg_dump");
 
 		System.out.println("Sauvegarde: " + backupDir);
 
@@ -23,9 +26,12 @@ public class FichierEditor {
 		cmds.add("set PGPASSWORD=martin90");
 		cmds.add("set PGuser=postgres");
 		cmds.add("set PGinstance=databaseinstance");
-		cmds.add("set PGdump=C:\\Program Files\\PostgreSQL\\9.4\\bin\\pg_dump");
-		// cmds.add("set PGdump=C:\\Program Files
-		// (x86)\\PostgreSQL\\9.4\\bin\\pg_dump");
+
+		if (!fileDump.exists()) {
+			fileDump = fileDump2;
+		}
+
+		cmds.add("set PGdump=" + fileDump);
 		cmds.add("set BackupDir=" + backupDir);
 		cmds.add("set BackupName=martscoData");
 		cmds.add("set DateTime=( %DATE:~-10,2%_%DATE:~-7,2%_%DATE:~-4% %TIME:~0,2%_%TIME:~3,2%_%TIME:~6,2% )");
