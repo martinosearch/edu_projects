@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,7 +20,6 @@ import configurationAppli.Setting;
 import connection.DAO;
 import connection.DAOFactory;
 import function.Constance;
-import graphicsModel.MartDynamicPanel;
 import graphicsModel.MartList;
 
 /**
@@ -45,7 +43,7 @@ public class ConfResponsable extends AbstractConfigPanel {
 	private JPanel pan3;
 	private JPanel pan4;
 	private JPanel pan5;
-	private MartDynamicPanel container2;
+	private JPanel container2;
 	private JPanel container1;
 	private static int nbre = 0;
 	private MartList<Agent> profs;
@@ -53,7 +51,6 @@ public class ConfResponsable extends AbstractConfigPanel {
 	private String[] tabProfs;
 	DAO ensdao, respdao;
 
-	private static JCheckBox ckPrim, ckCol, ckLeg, ckLet;
 	String fonction = "Le Directeur";
 
 	private JLabel lbNomPrimaire, lbNomCol, lbNomLeg, lbFonctionLeg, lbFonctionLet, lbNomLet, lbFonctionCol,
@@ -101,29 +98,12 @@ public class ConfResponsable extends AbstractConfigPanel {
 		pan5 = new JPanel();
 
 		container1 = new JPanel();
-		container2 = new MartDynamicPanel();
+		// container2 = new MartDynamicPanel();
+		container2 = new JPanel();
 		container1.setPreferredSize(dimPanes2);
 		container2.setPreferredSize(dimPanes3);
 
-		// les cases à cocher
-		ckPrim = new JCheckBox("Primaire");
-		ckCol = new JCheckBox("Collège");
-		ckLeg = new JCheckBox("Lycée d'Enseignement Général");
-		ckLet = new JCheckBox("Lycée d'Enseignement Technique");
-
-		ckPrim.addActionListener(this);
-		ckCol.addActionListener(this);
-		ckLeg.addActionListener(this);
-		ckLet.addActionListener(this);
-
-		pan11.setLayout(new GridLayout(4, 1));
-		pan11.setBorder(BorderFactory.createTitledBorder("Niveaux d'Enseignement"));
-		pan11.add(ckPrim);
-		pan11.add(ckCol);
-		pan11.add(ckLeg);
-		pan11.add(ckLet);
 		container1.setLayout(new BorderLayout());
-		container1.add(pan11, BorderLayout.CENTER);
 
 		String[] titres = { "Le Directeur", "La Directrice", "Le Proviseur", "Le Censeur" };
 
@@ -178,6 +158,11 @@ public class ConfResponsable extends AbstractConfigPanel {
 		pan5.add(lbFonctionLet);
 		pan5.add(cbFonctionLet);
 
+		container2.add(pan2);
+		container2.add(pan3);
+		container2.add(pan4);
+		container2.add(pan5);
+
 		// Ajout d'écouteur
 		cbNomPrim.addActionListener(this);
 		cbNomCol.addActionListener(this);
@@ -194,30 +179,6 @@ public class ConfResponsable extends AbstractConfigPanel {
 	public void actionPerformed(ActionEvent e) {
 		Component source = (Component) e.getSource();
 
-		if (source == ckPrim) {
-			if (ckPrim.isSelected() == true)
-				container2.addContenu(pan2);
-			else
-				container2.removeContenu(pan2);
-		}
-		if (source == ckCol) {
-			if (ckCol.isSelected() == true)
-				container2.addContenu(pan3);
-			else
-				container2.removeContenu(pan3);
-		}
-		if (source == ckLeg) {
-			if (ckLeg.isSelected() == true)
-				container2.addContenu(pan4);
-			else
-				container2.removeContenu(pan4);
-		}
-		if (source == ckLet) {
-			if (ckLet.isSelected() == true)
-				container2.addContenu(pan5);
-			else
-				container2.removeContenu(pan5);
-		}
 	}
 
 	@Override
@@ -240,69 +201,62 @@ public class ConfResponsable extends AbstractConfigPanel {
 	@Override
 	public void save() {
 		try {
-			if (ckPrim.isSelected()) {
-				Agent rsp = new Agent();
-				for (Agent ens : profs) {
-					if (ens.decrisToi().equals(cbNomPrim.getSelectedItem())) {
-						rsp = ens;
-					}
+			Agent rsp = new Agent();
+			for (Agent ens : profs) {
+				if (ens.decrisToi().equals(cbNomPrim.getSelectedItem())) {
+					rsp = ens;
 				}
-
-				String titre = "directeur_PRIM_" + Constance.getCor(annee);
-				dirPrim = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
-				String fonction = (String) cbFonctionPrim.getSelectedItem();
-				dirPrim.setFonction(fonction);
-
-				respdao.update_create(dirPrim);
 			}
 
-			if (ckCol.isSelected()) {
-				Agent rsp = new Agent();
-				for (Agent ens : profs) {
-					if (ens.decrisToi().equals(cbNomCol.getSelectedItem())) {
-						rsp = ens;
-					}
+			String titre = "directeur_PRIM_" + Constance.getCor(annee);
+			dirPrim = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
+			fonction = (String) cbFonctionPrim.getSelectedItem();
+			dirPrim.setFonction(fonction);
+
+			respdao.update_create(dirPrim);
+
+			rsp = new Agent();
+			for (Agent ens : profs) {
+				if (ens.decrisToi().equals(cbNomCol.getSelectedItem())) {
+					rsp = ens;
 				}
-
-				String titre = "directeur_COL_" + Constance.getCor(annee);
-				dirCol = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
-				String fonction = (String) cbFonctionCol.getSelectedItem();
-				dirCol.setFonction(fonction);
-
-				respdao.update_create(dirCol);
 			}
 
-			if (ckLeg.isSelected()) {
-				Agent rsp = new Agent();
-				for (Agent ens : profs) {
-					if (ens.decrisToi().equals(cbNomLeg.getSelectedItem())) {
-						rsp = ens;
-					}
+			titre = "directeur_COL_" + Constance.getCor(annee);
+			dirCol = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
+			fonction = (String) cbFonctionCol.getSelectedItem();
+			dirCol.setFonction(fonction);
+
+			respdao.update_create(dirCol);
+
+			rsp = new Agent();
+			for (Agent ens : profs) {
+				if (ens.decrisToi().equals(cbNomLeg.getSelectedItem())) {
+					rsp = ens;
 				}
-
-				String titre = "directeur_LEG_" + Constance.getCor(annee);
-				dirLeg = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
-				String fonction = (String) cbFonctionLeg.getSelectedItem();
-				dirLeg.setFonction(fonction);
-
-				respdao.update_create(dirLeg);
 			}
 
-			if (ckLet.isSelected()) {
-				Agent rsp = new Agent();
-				for (Agent ens : profs) {
-					if (ens.decrisToi().equals(cbNomLet.getSelectedItem())) {
-						rsp = ens;
-					}
+			titre = "directeur_LEG_" + Constance.getCor(annee);
+			dirLeg = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
+			fonction = (String) cbFonctionLeg.getSelectedItem();
+			dirLeg.setFonction(fonction);
+
+			respdao.update_create(dirLeg);
+
+			rsp = new Agent();
+			for (Agent ens : profs) {
+				if (ens.decrisToi().equals(cbNomLet.getSelectedItem())) {
+					rsp = ens;
 				}
-
-				String titre = "directeur_LET_" + Constance.getCor(annee);
-				dirLet = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
-				String fonction = (String) cbFonctionLet.getSelectedItem();
-				dirLet.setFonction(fonction);
-
-				respdao.update_create(dirLet);
 			}
+
+			titre = "directeur_LET_" + Constance.getCor(annee);
+			dirLet = new Responsable(titre, rsp.getCodeInfo(), rsp.getSexe());
+			fonction = (String) cbFonctionLet.getSelectedItem();
+			dirLet.setFonction(fonction);
+
+			respdao.update_create(dirLet);
+
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null, "Veuillez compléter tous les champs");
 		}
@@ -316,11 +270,6 @@ public class ConfResponsable extends AbstractConfigPanel {
 			Agent ensPrim = profs.find(dirPrim.getCodeInfo());
 			cbNomPrim.setSelectedItem(ensPrim.decrisToi());
 			cbFonctionPrim.setSelectedItem(dirPrim.getFonction());
-
-			if (dirPrim != null) {
-				ckPrim.setSelected(true);
-				container2.addContenu(pan2);
-			}
 		} catch (Exception e) {
 
 		}
@@ -331,11 +280,6 @@ public class ConfResponsable extends AbstractConfigPanel {
 			Agent ensCol = profs.find(dirCol.getCodeInfo());
 			cbNomCol.setSelectedItem(ensCol.decrisToi());
 			cbFonctionCol.setSelectedItem(dirCol.getFonction());
-
-			if (dirCol != null) {
-				ckCol.setSelected(true);
-				container2.addContenu(pan3);
-			}
 		} catch (Exception e) {
 
 		}
@@ -346,9 +290,6 @@ public class ConfResponsable extends AbstractConfigPanel {
 			Agent ensLeg = profs.find(dirLeg.getCodeInfo());
 			cbNomLeg.setSelectedItem(ensLeg.decrisToi());
 			cbFonctionLeg.setSelectedItem(dirLeg.getFonction());
-			if (dirLeg != null) {
-				container2.addContenu(pan4);
-			}
 		} catch (Exception e) {
 
 		}
@@ -359,9 +300,6 @@ public class ConfResponsable extends AbstractConfigPanel {
 			Agent ensLet = profs.find(dirLet.getCodeInfo());
 			cbNomLet.setSelectedItem(ensLet.decrisToi());
 			cbFonctionLet.setSelectedItem(dirLet.getFonction());
-			if (dirPrim != null) {
-				container2.addContenu(pan5);
-			}
 		} catch (Exception e) {
 
 		}

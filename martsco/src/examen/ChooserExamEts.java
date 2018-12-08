@@ -1,11 +1,5 @@
 package examen;
 
-import function.MartArranger;
-import function.MartFormatter;
-import function.NoteComparator;
-import graphicsModel.MartList;
-import interfacePerso.MartRangeable;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,7 +17,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import progress.Avancer;
 import abstractObject.AbstractChooser;
 import abstractObject.MartObjet;
 import annee.Annee;
@@ -31,6 +24,12 @@ import classe.Classe;
 import configurationExamen.ConfigExamen;
 import connection.DAO;
 import connection.DAOFactory;
+import function.MartArranger;
+import function.MartFormatter;
+import function.NoteComparator;
+import graphicsModel.MartList;
+import interfacePerso.MartRangeable;
+import progress.Avancer;
 
 public class ChooserExamEts extends AbstractChooser {
 	private JPanel panAnnee, panRadio, panButton, panExamen, panEts;
@@ -42,7 +41,6 @@ public class ChooserExamEts extends AbstractChooser {
 	private Dimension dim1 = new Dimension(100, 30);
 	private Dimension dim2 = new Dimension(250, 30);
 	private Dimension dim3 = new Dimension(290, 60);
-	DAO examdao, andao, matdao, elvdao, elvclsdao, decdao, pEtsDao;
 	String ins = "", eName = "";
 	MartList<Annee> Annees;
 	private JComboBox cbAnnee;
@@ -53,6 +51,7 @@ public class ChooserExamEts extends AbstractChooser {
 	private MartArranger ma = new MartArranger();
 	private String etsChoosed;
 	private ConfigExamen conf;
+	private DAO examdao;
 
 	public ChooserExamEts() {
 		this.setSize(400, 230);
@@ -102,14 +101,15 @@ public class ChooserExamEts extends AbstractChooser {
 		return instance;
 	}
 
+	public static void main(String[] args) {
+		getInstance().setVisible(true);
+	}
+
+	@Override
 	public void load() {
 		decomposer = new MartFormatter();
-
 		andao = DAOFactory.getDAO(DAO.ANNEE);
 		examdao = DAOFactory.getDAO(DAO.EXAMEN);
-		matdao = DAOFactory.getDAO(DAO.MATIERE);
-		elvdao = DAOFactory.getDAO(DAO.CANDIDAT);
-		elvclsdao = DAOFactory.getDAO(DAO.CANDIDAT_PERSO);
 
 		andao.load();
 		examdao.load();
@@ -129,23 +129,20 @@ public class ChooserExamEts extends AbstractChooser {
 
 		int i = 0;
 		decomposer.decomposer(Annees.get(0).getIntitule(), '-');
-		MartObjet obj = new MartObjet(decomposer.getDecomp(2),
-				decomposer.getDecomp(2));
+		MartObjet obj = new MartObjet(decomposer.getDecomp(2), decomposer.getDecomp(2));
 		obj.setRang(i);
 		listeAnTemp.smartAdd(obj);
 
 		for (Annee an : Annees) {
 			i++;
 			decomposer.decomposer(an.getIntitule(), '-');
-			MartObjet obj2 = new MartObjet(decomposer.getDecomp(1),
-					decomposer.getDecomp(1));
+			MartObjet obj2 = new MartObjet(decomposer.getDecomp(1), decomposer.getDecomp(1));
 			obj2.setRang(i);
 			listeAnTemp.smartAdd(obj2);
 
 		}
 
-		MartList<MartRangeable> listeAnOrdonne = ma.ordonner(listeAnTemp,
-				NoteComparator.DESCENDANT);
+		MartList<MartRangeable> listeAnOrdonne = ma.ordonner(listeAnTemp, NoteComparator.DESCENDANT);
 
 		int j = 0;
 		for (MartRangeable obj3 : listeAnOrdonne) {
@@ -221,6 +218,7 @@ public class ChooserExamEts extends AbstractChooser {
 	}
 
 	// Ecouteurs
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Component source = (Component) e.getSource();
 
@@ -237,6 +235,7 @@ public class ChooserExamEts extends AbstractChooser {
 		examenChoosed = (String) cbExamen.getSelectedItem();
 	}
 
+	@Override
 	public String getAnnee() {
 		return anneeChoosed;
 	}
@@ -245,6 +244,7 @@ public class ChooserExamEts extends AbstractChooser {
 		return examenChoosed;
 	}
 
+	@Override
 	public void setAction(ActionListener action) {
 		butValider.removeActionListener(validerListener);
 		this.validerListener = action;
@@ -363,10 +363,6 @@ public class ChooserExamEts extends AbstractChooser {
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
-	}
-
-	public static void main(String[] args) {
-		getInstance().setVisible(true);
 	}
 
 	public String getEts() {

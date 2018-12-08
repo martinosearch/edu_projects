@@ -1,13 +1,5 @@
 package candidat;
 
-import eleve.Eleve;
-import eleve.EleveClasse;
-import examen.ChooserExamEts;
-import function.Constance;
-import graphicsModel.MartFrame;
-import graphicsModel.MartList;
-import interfacePerso.Observer;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -28,21 +20,22 @@ import javax.swing.JTextField;
 
 import org.joda.time.DateTime;
 
-import classe.ChooserClasse;
-import progress.Avancer;
-import progress.Progress;
-import progress.ProgressFrame;
-import rapportBulletin.BullModelEditor1;
-import rapportBulletin.BullWriter;
-import rapportBulletin.BullWriterControler;
 import Import.ImportListeEleve;
-import abstractObject.AbstractControler;
-import abstractObject.AbstractModel;
 import annee.ChooserDate;
+import classe.ChooserClasse;
 import componentFactory.MartButton;
 import configurationExamen.ConfigExamen;
 import connection.DAO;
 import connection.DAOFactory;
+import eleve.Eleve;
+import eleve.EleveClasse;
+import examen.ChooserExamEts;
+import graphicsModel.MartFrame;
+import graphicsModel.MartList;
+import interfacePerso.Observer;
+import progress.Avancer;
+import progress.Progress;
+import progress.ProgressFrame;
 
 public class AjouterCdt extends MartFrame implements Observer {
 	private static AjouterCdt instance;
@@ -123,18 +116,19 @@ public class AjouterCdt extends MartFrame implements Observer {
 
 			chooser.setAction(new ActionListener() {
 
+				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					etablissement = chooser.getEts();
 					chooser.close();
 					ImportListeEleve imp = new ImportListeEleve();
-					final MartList<Eleve> liste = imp
-							.getListeExcelExamen(etablissement);
+					final MartList<Eleve> liste = imp.getListeExcelExamen(etablissement);
 
 					progress = new Progress();
 					pFrame = new ProgressFrame();
 					progress.getProgress(pFrame, 0, liste.size());
 
 					tExcel = new Thread(new Runnable() {
+						@Override
 						public void run() {
 							for (Eleve eleve : liste) {
 								eleve.initPrimaryKey();
@@ -164,8 +158,10 @@ public class AjouterCdt extends MartFrame implements Observer {
 
 		if (source == bInterne) {
 			final ChooserExamEts chooser = ChooserExamEts.getInstance();
+			System.out.println("==================================================>> Je suis là loooooo");
 
 			chooser.setAction(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					etablissement = chooser.getEts();
 					chooser.close();
@@ -180,12 +176,12 @@ public class AjouterCdt extends MartFrame implements Observer {
 						private DAO elvclsdao;
 						private MartList<EleveClasse> liste;
 
+						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							elvdao = DAOFactory.getDAO(DAO.ELEVE);
 							elvdao.load();
 							elvclsdao = DAOFactory.getDAO(DAO.ELEVE_CLASSE);
-							elvclsdao.load(null, monChoix.getClasse()
-									.getIntitule(), 0, monChoix.getAnnee());
+							elvclsdao.load(null, monChoix.getClasse().getIntitule(), 0, monChoix.getAnnee());
 
 							liste = elvclsdao.getListObt();
 
@@ -196,11 +192,11 @@ public class AjouterCdt extends MartFrame implements Observer {
 
 								private Eleve superEleve;
 
+								@Override
 								public void run() {
 
 									for (EleveClasse el : liste) {
-										superEleve = (Eleve) elvdao.findObj(el
-												.getCodeInfo());
+										superEleve = (Eleve) elvdao.findObj(el.getCodeInfo());
 										superEleve.setEts(etablissement);
 
 										saveEleve(superEleve);

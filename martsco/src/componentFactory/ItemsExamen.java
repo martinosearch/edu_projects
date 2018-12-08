@@ -1,23 +1,20 @@
 package componentFactory;
 
-import etablissement.NouveauEts;
-import examen.ChooserExam;
-import examen.NouveauExamen;
-import graphicsModel.MartFrame;
-import graphicsModel.OptionItem;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-import rapportBulletin.DocumentAdmin;
-import rapportExamen.DocumentAdminExam;
 import OptionPane.OptionNoteExam;
-import OptionPane.OptionSaisieNote;
 import candidat.NouveauCdt;
 import classe.ChooserClasse;
 import configurationExamen.ConfigExamen;
+import etablissement.NouveauEts;
+import examen.ChooserExam;
+import examen.NouveauExamen;
+import graphicsModel.MartFrame;
+import graphicsModel.OptionItem;
+import rapportExamen.DocumentAdminExam;
 
 public class ItemsExamen extends ItemsEditorPanel {
 
@@ -30,8 +27,7 @@ public class ItemsExamen extends ItemsEditorPanel {
 
 	public ItemsExamen() {
 		setTitre("Examen");
-		ecole = new OptionItem(
-				"img_ecole.png",
+		ecole = new OptionItem("img_ecole.png",
 				"<div>Ecoles<div><div id='explication'>Les différentes écoles qui participent à l'examen.</div>");
 		examen = new OptionItem("img_rapport.png",
 				"<div>Examens</div><div id='explication'>Examens et spécifications</div>");
@@ -39,8 +35,7 @@ public class ItemsExamen extends ItemsEditorPanel {
 				"<div>Candidats</div><div id='explication'>Inscription des candidats</div>");
 		doc = new OptionItem("img_rapport.png",
 				"<div>Autres Documents</div><div id='explication'>Fiches pratiques</div>");
-		gestionNote = new OptionItem(
-				"img_rapport.png",
+		gestionNote = new OptionItem("img_rapport.png",
 				"<div>Gestion des notes</div><div id='explication'>Saisie des notes/ résultat</div>");
 		config = new OptionItem("img_reglage.png", "<div>Configuration</div>");
 
@@ -77,9 +72,11 @@ public class ItemsExamen extends ItemsEditorPanel {
 			examChooser.setEtsChoosing(false);
 
 			examChooser.setAction(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					examChooser.setModal(false);
 					new Thread(new Runnable() {
+						@Override
 						public void run() {
 							String exam = examChooser.getExamen();
 							ConfigExamen conf = new ConfigExamen(exam);
@@ -101,6 +98,7 @@ public class ItemsExamen extends ItemsEditorPanel {
 			new Thread(new Runnable() {
 				private ChooserExam monChoix;
 
+				@Override
 				public void run() {
 					monChoix = ChooserExam.getInstance();
 					monChoix.setModal(false);
@@ -108,8 +106,10 @@ public class ItemsExamen extends ItemsEditorPanel {
 
 					// On définit l'action qui serra assignée au chooser
 					monChoix.setAction(new ActionListener() {
+						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							new Thread(new Runnable() {
+								@Override
 								public void run() {
 									NouveauCdt ncdt = NouveauCdt.getInstance();
 									ncdt.setExamen(monChoix.getExamen());
@@ -135,9 +135,11 @@ public class ItemsExamen extends ItemsEditorPanel {
 			examChooser.setEtsChoosing(false);
 
 			examChooser.setAction(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					examChooser.setModal(false);
 					new Thread(new Runnable() {
+						@Override
 						public void run() {
 							DocumentAdminExam writer = new DocumentAdminExam();
 							writer.setExamen(examChooser.getExamen());
