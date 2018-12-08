@@ -29,8 +29,8 @@ public class AnneeService implements MyService<Annee> {
 		List<Annee> objs = new ArrayList<>();
 		int i = 0;
 		for (Annee an : repository.findAll()) {
+			an.setNum(i + 1);
 			objs.add(an);
-
 			i++;
 		}
 		return objs;

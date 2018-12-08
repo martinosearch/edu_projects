@@ -40,31 +40,14 @@
 	</subDataset>
 	<parameter name="annees" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="signe_interprise" class="java.lang.String"/>
-	<parameter name="p_logo" class="java.awt.Image"/>
+	<parameter name="P_LOGO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="96" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="53" splitType="Stretch">
-			<staticText>
-				<reportElement x="90" y="16" width="380" height="30" uuid="2141ce1c-4700-4785-93a6-8e8b1eecc3c5"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="26" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Liste des années- scolaires]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="10" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="511" splitType="Stretch">
+		<band height="96" splitType="Stretch">
 			<componentElement>
-				<reportElement x="0" y="-2" width="560" height="70" uuid="903b5904-3f44-4a0b-bc00-a35b594ba5cc">
+				<reportElement key="" style="Table_TH" x="-10" y="40" width="570" height="45" uuid="903b5904-3f44-4a0b-bc00-a35b594ba5cc">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -76,9 +59,9 @@
 					</datasetRun>
 					<jr:column width="80" uuid="0d5c48aa-664b-4613-96f7-6c5148b117ed">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne1"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="45156405-5ae3-42ee-b21f-dbb64cf31b05"/>
+								<reportElement x="0" y="0" width="80" height="20" uuid="45156405-5ae3-42ee-b21f-dbb64cf31b05"/>
 								<textElement verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 									<paragraph lineSpacingSize="0.0" leftIndent="10"/>
@@ -86,12 +69,13 @@
 								<text><![CDATA[N° Ord.]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30">
+						<jr:detailCell style="Table_TD" height="20">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 							<textField>
-								<reportElement x="0" y="0" width="80" height="30" uuid="76aac824-a5f6-4504-884d-5b9b1320ce10"/>
+								<reportElement x="0" y="0" width="80" height="20" uuid="76aac824-a5f6-4504-884d-5b9b1320ce10"/>
 								<textElement verticalAlignment="Middle">
 									<font size="12"/>
-									<paragraph leftIndent="10"/>
+									<paragraph lineSpacing="1_1_2" lineSpacingSize="1.0" leftIndent="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
 							</textField>
@@ -99,9 +83,9 @@
 					</jr:column>
 					<jr:column width="260" uuid="e3f62d83-f0f0-4929-a378-4ea2b66fd4c5">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne2"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="260" height="30" uuid="a4865cee-e016-4b48-bf3d-025409617b7b"/>
+								<reportElement x="0" y="0" width="260" height="20" uuid="a4865cee-e016-4b48-bf3d-025409617b7b"/>
 								<textElement verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 									<paragraph leftIndent="10"/>
@@ -109,22 +93,22 @@
 								<text><![CDATA[Intitule]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30">
+						<jr:detailCell style="Table_TD" height="20">
 							<textField>
-								<reportElement x="0" y="0" width="260" height="30" uuid="6c59e828-aca4-4db9-8dbb-6e1c55936072"/>
-								<textElement verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="260" height="20" uuid="6c59e828-aca4-4db9-8dbb-6e1c55936072"/>
+								<textElement verticalAlignment="Middle" markup="html">
 									<font size="12"/>
-									<paragraph firstLineIndent="10"/>
+									<paragraph lineSpacingSize="1.0" firstLineIndent="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{intitule}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="220" uuid="06a3946f-2288-4498-bc5b-f33f9d625b82">
+					<jr:column width="230" uuid="06a3946f-2288-4498-bc5b-f33f9d625b82">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Colonne3"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="220" height="30" uuid="15b35d76-95b6-42a7-82d4-9932ac9f05b5"/>
+								<reportElement x="0" y="0" width="230" height="20" uuid="15b35d76-95b6-42a7-82d4-9932ac9f05b5"/>
 								<textElement verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 									<paragraph firstLineIndent="10"/>
@@ -132,12 +116,13 @@
 								<text><![CDATA[En cours]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30">
+						<jr:detailCell style="Table_TD" height="20">
 							<textField>
-								<reportElement x="0" y="0" width="220" height="30" uuid="4b7fd0e5-13a8-46c8-a8d0-a81dd600d2fe"/>
-								<textElement verticalAlignment="Middle" markup="none">
+								<reportElement x="0" y="0" width="230" height="20" uuid="0439da4e-2200-4002-8ed2-cf9734b021e1"/>
+								<box padding="0"/>
+								<textElement verticalAlignment="Middle">
 									<font size="12"/>
-									<paragraph lineSpacingSize="0.0" firstLineIndent="10"/>
+									<paragraph leftIndent="10"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{isCurrent}]]></textFieldExpression>
 							</textField>
@@ -145,13 +130,17 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement x="80" y="0" width="380" height="30" uuid="2141ce1c-4700-4785-93a6-8e8b1eecc3c5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="26" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Liste des années- scolaires]]></text>
+			</staticText>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="30" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="34" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<line>
 				<reportElement x="2" y="9" width="550" height="1" uuid="643902b6-dea2-44c4-a3ce-4c6ff21a8329"/>
 			</line>
@@ -175,9 +164,9 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="49" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<staticText>
-				<reportElement x="2" y="11" width="550" height="30" uuid="70ddaef5-0fc4-46b3-b26f-07e14f9f84e4"/>
+				<reportElement x="0" y="3" width="550" height="17" uuid="70ddaef5-0fc4-46b3-b26f-07e14f9f84e4"/>
 				<text><![CDATA[Ce rapport récapitule les différente année- scolaire enrégistrées dans la base de données.]]></text>
 			</staticText>
 		</band>

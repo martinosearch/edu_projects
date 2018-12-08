@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.martino.martsco.properties.FileStorageProperties;
+import com.martino.martsco.reports.Report;
+import com.martino.martsco.reports.ReportService;
 import com.martino.martsco.services.FileService;
-import com.martino.martsco.services.ReportService;
-import com.martino.martsco.util.Report;
 
 @RestController
 @CrossOrigin(origins = "*")

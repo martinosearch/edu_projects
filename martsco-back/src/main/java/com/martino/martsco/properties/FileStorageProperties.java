@@ -12,4 +12,5 @@ import lombok.Data;
 public class FileStorageProperties {
 	private String folder;
 	private String folderImages;
+	private String folderReports;
 }

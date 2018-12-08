@@ -1,15 +1,16 @@
-package com.martino.martsco.services;
+package com.martino.martsco.reports;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.martino.martsco.util.JasperService;
-import com.martino.martsco.util.Report;
-import com.martino.martsco.util.ReportData;
+import com.martino.martsco.properties.FileStorageProperties;
+import com.martino.martsco.services.AnneeService;
 
 @Service
 public class ReportService {
@@ -20,25 +21,36 @@ public class ReportService {
 	private ReportData data;
 	@Autowired
 	private JasperService jasperService;
+	@Autowired
+	private ServletContext servletContext;
+	@Autowired
+	private FileStorageProperties fileStorageProperties;
 
 	// This method generates a PDF report
 	public File createRepport(int type) throws IOException {
 		this.type = type;
 		String titre;
-		Map<String, Object> paramaters;
+		Map<String, Object> parameters;
 
+		String[] sousReports = null;
 		switch (this.type) {
 		case Report.LISTE_ANNEE:
 			titre = "entete_portrait";
-			paramaters = data.getAnneeParams();
+			// titre = "liste_annee";
+			sousReports = new String[1];
+			sousReports[0] = "liste_annee";
+			parameters = data.getAnneeParams();
 			break;
 		default:
 			titre = "pdf";
-			paramaters = null;
+			parameters = null;
 			break;
 		}
 
+		// ajout des paramètres généraux
+		// String context = servletContext.getRealPath("/");
+
 		// lancement de la génération du documents
-		return jasperService.generateReport(titre, paramaters);
+		return jasperService.generateReport(titre, sousReports, parameters);
 	}
 }

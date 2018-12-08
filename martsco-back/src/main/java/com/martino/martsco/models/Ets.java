@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.swing.ImageIcon;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,6 @@ public class Ets {
 	private String tel;
 	private String email;
 	private String devise;
-	private Object logo;
+	private ImageIcon logo;
 	private int typeEnsId;
 }
