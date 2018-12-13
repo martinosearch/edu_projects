@@ -1,13 +1,5 @@
 package function;
 
-import eleve.PromoEleve;
-import eleve.PromoEleveControler;
-import eleve.PromoEleveModel;
-import examen.ChooserExam;
-import graphicsModel.MartFrame;
-import graphicsModel.MartImage;
-import graphicsModel.MyFrame;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -20,19 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import matiere.SectionMatiere;
-import progress.Progress;
-import rapportBulletin.BullModelEditor1;
-import rapportBulletin.BullWriter;
-import rapportBulletin.BullWriterControler;
-import rapportBulletin.DocFormat;
-import rapportBulletin.ListeWriterModel;
-import rapportBulletin.ScoWriterModel;
-import rapportExamen.ListeWriterExamModel;
-import rapportExamen.RelWriter;
-import rapportExamen.RelWriterControler;
-import rapportExamen.RelWriterModelDouble;
-import rapportExamen.RelWriterModelSingle;
 import Import.ImportExamManager;
 import abstractObject.AbstractChooser;
 import abstractObject.AbstractControler;
@@ -40,12 +19,21 @@ import abstractObject.AbstractModel;
 import annee.ChooserAnnee;
 import classe.ChooserClasse;
 import classe.FusionClasse;
-import complements.MyFen;
 import configurationAppli.ConfigApplication;
 import configurationEcole.ConfigEcole;
-import configurationExamen.ConfigExamen;
 import connection.DAO;
 import connection.MartConnection;
+import eleve.PromoEleve;
+import eleve.PromoEleveControler;
+import eleve.PromoEleveModel;
+import examen.ChooserExam;
+import graphicsModel.MartFrame;
+import graphicsModel.MartImage;
+import graphicsModel.MyFrame;
+import progress.Progress;
+import rapportBulletin.ListeWriterModel;
+import rapportBulletin.ScoWriterModel;
+import rapportExamen.ListeWriterExamModel;
 
 public class GeneralVoid {
 
@@ -89,8 +77,10 @@ public class GeneralVoid {
 
 		// On définit l'action qui serra assignée au chooser
 		monChoix.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new Thread(new Runnable() {
+					@Override
 					public void run() {
 						ListeWriterModel model = new ListeWriterModel();
 
@@ -98,10 +88,8 @@ public class GeneralVoid {
 						model.setAfficherPhoto(monChoix.getFirstOption());
 						model.setClasse(monChoix.getClasse().getIntitule());
 
-						System.out
-								.println("===================>> PhotosOption: "
-										+ ((ChooserClasse) monChoix)
-												.getFirstOption());
+						System.out.println(
+								"===================>> PhotosOption: " + ((ChooserClasse) monChoix).getFirstOption());
 						model.valider(model.DEFAULT);
 					}
 				}).start();
@@ -116,8 +104,7 @@ public class GeneralVoid {
 	public void createImportFile() {
 		Fichier fImport = null;
 		JFileChooser fChooser = new JFileChooser();
-		fChooser.setFileFilter(new FiltreFichier("fichier d'importation_",
-				"csv"));
+		fChooser.setFileFilter(new FiltreFichier("fichier d'importation_", "csv"));
 		int selection = fChooser.showOpenDialog(null);
 
 		if (selection == JFileChooser.APPROVE_OPTION) {
@@ -129,8 +116,7 @@ public class GeneralVoid {
 
 	public void doSauvegardeBD() {
 		FichierEditor.writeSauvegarde();
-		ProcessBuilder pb = new ProcessBuilder(Constance.getTempDir()
-				+ "db_dump.bat");
+		ProcessBuilder pb = new ProcessBuilder(Constance.getTempDir() + "db_dump.bat");
 		Process process = null;
 		try {
 			process = pb.start();
@@ -149,6 +135,7 @@ public class GeneralVoid {
 	public void doSmartClosing() {
 		if (MartConnection.isServer()) {
 			new Thread(new Runnable() {
+				@Override
 				public void run() {
 					doSauvegardeBD();
 				}
@@ -167,17 +154,15 @@ public class GeneralVoid {
 		JPanel container = new JPanel();
 
 		container.setLayout(new BorderLayout());
-		container
-				.add(new MartImage(getClass().getClassLoader().getResource(
-						Constance.getImageFolder() + "img_sauvegarderbase.png")),
-						BorderLayout.CENTER);
+		container.add(new MartImage(
+				getClass().getClassLoader().getResource(Constance.getImageFolder() + "img_sauvegarderbase.png")),
+				BorderLayout.CENTER);
 
 		JLabel lb = new JLabel();
 		lb.setText("<html><h2 font-size='20pt'>Martsco effectue des sauvegardes "
 				+ "automatiques à chaque ouverture et fermeture"
 				+ " du serveur. Vous devez de temps en temps copier ces fichiers de"
-				+ " sauvegarde sur un support externe.</h2>"
-				+ "<h2 color='blue'>Emplacement: D:/BackUp</h2></html>");
+				+ " sauvegarde sur un support externe.</h2>" + "<h2 color='blue'>Emplacement: D:/BackUp</h2></html>");
 		container.add(lb, BorderLayout.SOUTH);
 
 		fr.getContentPane().add(container, BorderLayout.CENTER);
@@ -187,12 +172,12 @@ public class GeneralVoid {
 		progress.setColor(Color.GREEN);
 
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				for (int i = 0; i < 100; i++) {
 					try {
 						progress.increment();
-						progress.setText("Fermeture dans: "
-								+ (int) (10 - i * 0.1) + " sec.");
+						progress.setText("Fermeture dans: " + (int) (10 - i * 0.1) + " sec.");
 						Thread.sleep(100);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -204,8 +189,7 @@ public class GeneralVoid {
 						System.out.println("REDEMARRAGE");
 						FichierEditor.writeRestart();
 						try {
-							Runtime.getRuntime().exec(
-									Constance.getTempDir() + "rst.bat");
+							Runtime.getRuntime().exec(Constance.getTempDir() + "rst.bat");
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -218,17 +202,14 @@ public class GeneralVoid {
 						System.out.println("RESTORATION DE LA BD");
 						FichierEditor.writeRestore();
 						try {
-							Runtime.getRuntime().exec(
-									Constance.getTempDir() + "db_restore.bat");
+							Runtime.getRuntime().exec(Constance.getTempDir() + "db_restore.bat");
 
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 
 					} else {
-						JOptionPane
-								.showMessageDialog(null,
-										"Cette action n'est possible que sur le serveur.");
+						JOptionPane.showMessageDialog(null, "Cette action n'est possible que sur le serveur.");
 					}
 					fr.dispose();
 					System.out.println("LIBERATION DE MEMOIRE");
@@ -261,8 +242,10 @@ public class GeneralVoid {
 
 		// On d�finit l'action qui serra assignée au chooser
 		monChoix.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new Thread(new Runnable() {
+					@Override
 					public void run() {
 
 						AbstractModel model = new PromoEleveModel();
@@ -271,8 +254,7 @@ public class GeneralVoid {
 						model.setTrimestre(monChoix.getTrimestre());
 						model.setClasse(monChoix.getClasse().getIntitule());
 
-						AbstractControler controler = new PromoEleveControler(
-								model);
+						AbstractControler controler = new PromoEleveControler(model);
 						PromoEleve pEleve = new PromoEleve(controler);
 						model.addObserver(pEleve);
 						pEleve.setVisible(true);
@@ -293,16 +275,17 @@ public class GeneralVoid {
 
 		// On définit l'action qui serra assignée au chooser
 		monChoix.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new Thread(new Runnable() {
+					@Override
 					public void run() {
 
 						ScoWriterModel model = new ScoWriterModel();
 
 						model.setAnnee(monChoix.getAnnee());
 						model.setClasse(monChoix.getClasse().getIntitule());
-						model.setAfficherPhoto(((ChooserClasse) monChoix)
-								.getFirstOption());
+						model.setAfficherPhoto(((ChooserClasse) monChoix).getFirstOption());
 						model.valider(model.DEFAULT);
 					}
 				}).start();
@@ -322,6 +305,7 @@ public class GeneralVoid {
 		chooser = ChooserExam.getInstance();
 
 		chooser.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ImportExamManager mng = new ImportExamManager();
 				mng.setExamen(chooser.getExamen());
@@ -338,6 +322,7 @@ public class GeneralVoid {
 		chooser = ChooserExam.getInstance();
 
 		chooser.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ListeWriterExamModel model = new ListeWriterExamModel();
 				model.setExamen(chooser.getExamen());
@@ -358,6 +343,7 @@ public class GeneralVoid {
 		annee = monChoix.getAnnee();
 
 		monChoix.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				FusionClasse fc = new FusionClasse(annee);
 				fc.setVisible(true);
@@ -369,9 +355,14 @@ public class GeneralVoid {
 	}
 
 	public void lunchBD() {
+		String url = "C:\\Program Files\\PostgreSQL\\9.4\\bin\\PgAdmin3.exe";
+
+		File file = new File(url);
+		if (!file.exists()) {
+			url = "C:\\Program Files (x86)\\PostgreSQL\\9.4\\bin\\PgAdmin3.exe";
+		}
 		try {
-			Runtime.getRuntime().exec(
-					"C:\\Program Files\\PostgreSQL\\9.4\\bin\\PgAdmin3.exe");
+			Runtime.getRuntime().exec(url);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -381,8 +372,7 @@ public class GeneralVoid {
 		System.out.println("SUPPRESSION DES FICHIERS INUTILES");
 		FichierEditor.writeFreeMemory();
 		try {
-			Runtime.getRuntime()
-					.exec(Constance.getTempDir() + "freeMemory.bat");
+			Runtime.getRuntime().exec(Constance.getTempDir() + "freeMemory.bat");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -398,8 +388,8 @@ public class GeneralVoid {
 		anneeChooser = ChooserAnnee.getInstance();
 
 		anneeChooser.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new SectionMatiere(anneeChooser.getAnnee()).setVisible(true);
 			}
 		});
 
@@ -432,8 +422,7 @@ public class GeneralVoid {
 				e1.printStackTrace();
 			}
 		} else {
-			JOptionPane.showMessageDialog(null,
-					"Cette action n'est possible que sur le serveur.");
+			JOptionPane.showMessageDialog(null, "Cette action n'est possible que sur le serveur.");
 		}
 
 		System.exit(0);
@@ -450,6 +439,7 @@ public class GeneralVoid {
 		monChoix.setLocation(MartFrame.INTERNAL_FRAME_LOCATION);
 
 		monChoix.setAction(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				conf = new ConfigEcole(trimestre, monChoix.getAnnee());
 				conf.setVisible(true);

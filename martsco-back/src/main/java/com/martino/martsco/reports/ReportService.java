@@ -1,7 +1,6 @@
 package com.martino.martsco.reports;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -27,7 +26,7 @@ public class ReportService {
 	private FileStorageProperties fileStorageProperties;
 
 	// This method generates a PDF report
-	public File createRepport(int type) throws IOException {
+	public File createRepport(int type) throws Exception {
 		this.type = type;
 		String titre;
 		Map<String, Object> parameters;
@@ -35,8 +34,8 @@ public class ReportService {
 		String[] sousReports = null;
 		switch (this.type) {
 		case Report.LISTE_ANNEE:
-			titre = "entete_portrait";
-			// titre = "liste_annee";
+			// titre = "entete_portrait";
+			titre = "liste_annee";
 			sousReports = new String[1];
 			sousReports[0] = "liste_annee";
 			parameters = data.getAnneeParams();
@@ -51,6 +50,6 @@ public class ReportService {
 		// String context = servletContext.getRealPath("/");
 
 		// lancement de la génération du documents
-		return jasperService.generateReport(titre, sousReports, parameters);
+		return jasperService.generateReport(titre, parameters);
 	}
 }
