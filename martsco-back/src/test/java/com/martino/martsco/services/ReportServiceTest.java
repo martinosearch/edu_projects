@@ -10,12 +10,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.martino.martsco.MyIntegrationTest;
-import com.martino.martsco.reports.ReportService;
+import com.martino.martsco.reports.ReportFactory;
 import com.martino.martsco.util.Report;
 
 public class ReportServiceTest extends MyIntegrationTest {
 	@Autowired
-	ReportService reportService;
+	ReportFactory reportService;
 
 	@Before
 	public void setUp() throws Exception {

@@ -16,7 +16,7 @@ import com.martino.martsco.models.Matiere;
 import com.martino.martsco.models.NiveauEns;
 import com.martino.martsco.models.TypeEns;
 import com.martino.martsco.models.TypeMatiere;
-import com.martino.martsco.reports.ReportService;
+import com.martino.martsco.reports.ReportFactory;
 import com.martino.martsco.services.AnneeService;
 import com.martino.martsco.services.ClasseService;
 import com.martino.martsco.services.EleveService;
@@ -118,8 +118,8 @@ public abstract class MyIntegrationTest {
 		}
 
 		@Bean
-		public ReportService reportService() {
-			return new ReportService();
+		public ReportFactory reportService() {
+			return new ReportFactory();
 		}
 
 		@Bean

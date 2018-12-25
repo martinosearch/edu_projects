@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.martino.martsco.properties.FileStorageProperties;
 import com.martino.martsco.reports.Report;
-import com.martino.martsco.reports.ReportService;
+import com.martino.martsco.reports.ReportFactory;
 import com.martino.martsco.services.FileService;
 
 @RestController
@@ -32,7 +32,7 @@ public class FileController {
 	@Autowired
 	private ServletContext servletContext;
 	@Autowired
-	private ReportService service;
+	private ReportFactory service;
 
 	@GetMapping("/report/{fileName:.+}/download")
 	public ResponseEntity<ByteArrayResource> download(@PathVariable String fileName) throws Exception {

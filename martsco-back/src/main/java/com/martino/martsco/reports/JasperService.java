@@ -29,12 +29,16 @@ public class JasperService {
 	private File finalFile;
 	@Autowired
 	private FileStorageProperties fileStorageProperties;
+	@Autowired
+	private DataListeAnnee dataFactory;
 
-	public File generateReport(String titre, Map<String, Object> parameters) {
+	public File generateReport(String titre) {
 		// Output file location
 		// User home directory location
 		// String userHomeDirectory = System.getProperty("user.home");
+
 		String folder = fileStorageProperties.getFolder();
+
 		File outputFile = null;
 		try {
 			outputFile = File.createTempFile("pdfTemp", ".pdf", new File(folder));
@@ -42,22 +46,25 @@ public class JasperService {
 			e.printStackTrace();
 		}
 
-		InputStream jrxmlInput = null;
+		InputStream jrxmlMaster = null;
+		InputStream jrxmlSubReport = null;
 		try {
-			jrxmlInput = this.getClass().getClassLoader().getResource("\\reports\\" + titre + ".jrxml").openStream();
+			jrxmlMaster = this.getClass().getClassLoader().getResource("\\reports\\" + titre + ".jrxml").openStream();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LoggerApp.error("Dans la classe jasperservice", e1);
 		}
+
+		// Data source
+		// JRBeanCollectionDataSource jRBean = dataFactory.loadDataSource();
+		Map<String, Object> parameters = dataFactory.loadParameters();
 
 		// load the template
 		JasperDesign design = null;
 		try {
-			design = JRXmlLoader.load(jrxmlInput);
+			design = JRXmlLoader.load(jrxmlMaster);
 			LoggerApp.info("Model bien chargé");
-		} catch (JRException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (JRException ex) {
+			LoggerApp.error("Dans la classe jasperservice lors du chargement du design", ex);
 		}
 
 		// compile the template to report
@@ -65,9 +72,8 @@ public class JasperService {
 		try {
 			jasperReport = JasperCompileManager.compileReport(design);
 			LoggerApp.info("Report compilé avec succes");
-		} catch (JRException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (JRException e) {
+			LoggerApp.error("Dans la classe jasperservice lors de la compilation", e);
 		}
 
 		try {
@@ -84,8 +90,7 @@ public class JasperService {
 			LoggerApp.info("Completed Successfully: ");
 
 		} catch (Exception e) {
-			LoggerApp.info("Une erreur lors de la création du rapport", e);
-			return null;
+			LoggerApp.error("Une erreur lors de la création du rapport", e);
 		}
 
 		return finalFile;
